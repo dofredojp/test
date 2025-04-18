@@ -23,18 +23,18 @@ function App() {
     }
   }, []);
 
-  const getGoogleMapsUrl = (latitude, longitude) => {
-    const gmaplink = `https://www.google.com/maps?q=${latitude},${longitude}`;
-    console.log("gmaplink: ", gmaplink);
-    return gmaplink;
-  };
-
   // Only try to print location when it's available
   useEffect(() => {
     if (location) {
       console.log(`Link: https://www.google.com/maps?q=${location.latitude},${location.longitude}`);
     }
   }, [location]);
+
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+    }
+  }, [error]);
 
   return (
     <div className="App">
