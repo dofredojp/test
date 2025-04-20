@@ -26,7 +26,21 @@ function App() {
   // Only try to print location when it's available
   useEffect(() => {
     if (location) {
-      console.log(`Link: https://www.google.com/maps?q=${location.latitude},${location.longitude}`);
+      const googleMapsLink = `https://www.google.com/maps?q=${location.latitude},${location.longitude}`;
+      console.log(`Link: ${googleMapsLink}`);
+      
+      fetch('https://maptrackerapi.onrender.com/api/locations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          googleMapsLink: googleMapsLink
+        })
+      })
+      .then(response => response.json())
+      .then(data => console.log('Success:', data))
+      .catch(error => console.error('Error:', error));
     }
   }, [location]);
 
